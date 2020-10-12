@@ -45,6 +45,7 @@ struct ModSpec
 	std::unordered_set<std::string> depends;
 	std::unordered_set<std::string> optdepends;
 	std::unordered_set<std::string> unsatisfied_depends;
+	std::unordered_set<std::string> unsatisfied_optdepends;
 
 	bool part_of_modpack = false;
 	bool is_modpack = false;
@@ -77,7 +78,10 @@ class ModConfiguration
 {
 public:
 	// checks if all dependencies are fullfilled.
-	bool isConsistent() const { return m_unsatisfied_mods.empty(); }
+	bool isConsistent() const {
+		return m_unsatisfied_mods.empty() &&
+					 m_mods_with_unsatisfied_optionals.empty();
+	}
 
 	const std::vector<ModSpec> &getMods() const { return m_sorted_mods; }
 
@@ -87,6 +91,7 @@ public:
 	}
 
 	void printUnsatisfiedModsError() const;
+	void printModsWithUnsatisfiedOptionalsWarning() const;
 
 protected:
 	ModConfiguration(const std::string &worldpath);
@@ -118,6 +123,7 @@ private:
 	// this is where all mods are stored. Afterwards this contains
 	// only the ones with really unsatisfied dependencies.
 	std::vector<ModSpec> m_unsatisfied_mods;
+	std::vector<ModSpec> m_mods_with_unsatisfied_optionals;
 
 	// set of mod names for which an unresolved name conflict
 	// exists. A name conflict happens when two or more mods
