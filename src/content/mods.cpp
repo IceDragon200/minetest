@@ -213,13 +213,15 @@ std::vector<ModSpec> flattenMods(const std::map<std::string, ModSpec> &mods)
 }
 
 // Look ma, an inline class!
-class ModsResolver {
+class ModsResolver
+{
 public:
 	// the mods here is a copy of the ModConfiguration unsatisifed mods
-	ModsResolver(std::vector<ModSpec> mods) {
-	  for (ModSpec mod : mods) {
-	    modsByName[mod.name] = mod;
-	  }
+	ModsResolver(std::vector<ModSpec> mods)
+	{
+		for (ModSpec mod : mods) {
+			modsByName[mod.name] = mod;
+		}
 	};
 
 	// the main entry point to start resolving the graph
@@ -232,6 +234,7 @@ public:
 	// mods that are valid, but some or all of its optional dependencies
 	// could not be resolved
 	std::list<ModSpec> modsWithUnsatisfiedOptionals;
+
 private:
 	// resolve the mod by name, not spec, since a mod may not exist
 	void resolveMod(std::string &modname);
@@ -290,8 +293,8 @@ void ModsResolver::run()
 			if (mod.unsatisfied_depends.empty()) {
 				// if it has, it can be pushed unto the sortedMods list
 				sortedMods.push_back(mod);
-				// now to give the user some feedback, check if the mod also
-				// satisfied it's optional dependencies
+				// now to give the user some feedback, check if the mod
+				// also satisfied it's optional dependencies
 				if (!mod.unsatisfied_optdepends.empty()) {
 					// if not, then we push it unto the optionals list
 					modsWithUnsatisfiedOptionals.push_back(mod);
@@ -367,7 +370,7 @@ void ModConfiguration::printModsWithUnsatisfiedOptionalsWarning() const
 {
 	for (const ModSpec &mod : m_mods_with_unsatisfied_optionals) {
 		warningstream << "mod \"" << mod.name
-			    << "\" has unsatisfied dependencies (optional): ";
+			      << "\" has unsatisfied dependencies (optional): ";
 		for (const std::string &unsatisfied_depend : mod.unsatisfied_optdepends)
 			warningstream << " \"" << unsatisfied_depend << "\"";
 		warningstream << std::endl;
@@ -514,8 +517,11 @@ void ModConfiguration::resolveDependencies()
 	resolver.run();
 
 	m_sorted_mods.assign(resolver.sortedMods.begin(), resolver.sortedMods.end());
-	m_unsatisfied_mods.assign(resolver.unsatisfiedMods.begin(), resolver.unsatisfiedMods.end());
-	m_mods_with_unsatisfied_optionals.assign(resolver.modsWithUnsatisfiedOptionals.begin(), resolver.modsWithUnsatisfiedOptionals.end());
+	m_unsatisfied_mods.assign(
+			resolver.unsatisfiedMods.begin(), resolver.unsatisfiedMods.end());
+	m_mods_with_unsatisfied_optionals.assign(
+			resolver.modsWithUnsatisfiedOptionals.begin(),
+			resolver.modsWithUnsatisfiedOptionals.end());
 }
 
 #ifndef SERVER
