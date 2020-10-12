@@ -398,6 +398,7 @@ void Server::init()
 	// complain about mods with unsatisfied dependencies
 	if (!m_modmgr->isConsistent()) {
 		m_modmgr->printUnsatisfiedModsError();
+		m_modmgr->printModsWithUnsatisfiedOptionalsWarning();
 	}
 
 	//lock environment
