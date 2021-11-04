@@ -65,7 +65,7 @@ s16 LuaHelper::readParam(lua_State *L, int index)
 template <>
 int LuaHelper::readParam(lua_State *L, int index)
 {
-	return luaL_checkint(L, index);
+	return luaL_checkinteger(L, index);
 }
 
 template <>

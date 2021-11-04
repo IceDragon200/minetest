@@ -19,10 +19,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 #pragma once
 
-extern "C" {
-#include <lua.h>
-#include <lauxlib.h>
-}
+#include "mt_lua.h"
 
 class LuaHelper
 {

@@ -67,8 +67,8 @@ int LuaPerlinNoise::create_object(lua_State *L)
 	if (lua_istable(L, 1)) {
 		read_noiseparams(L, 1, &params);
 	} else {
-		params.seed    = luaL_checkint(L, 1);
-		params.octaves = luaL_checkint(L, 2);
+		params.seed    = luaL_checkinteger(L, 1);
+		params.octaves = luaL_checkinteger(L, 2);
 		params.persist = readParam<float>(L, 3);
 		params.spread  = v3f(1, 1, 1) * readParam<float>(L, 4);
 	}

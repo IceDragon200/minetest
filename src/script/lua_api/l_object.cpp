@@ -1513,7 +1513,7 @@ int ObjectRef::l_hud_remove(lua_State *L)
 	if (player == nullptr)
 		return 0;
 
-	u32 id = luaL_checkint(L, 2);
+	u32 id = luaL_checkinteger(L, 2);
 
 	if (!getServer(L)->hudRemove(player, id))
 		return 0;
@@ -1531,7 +1531,7 @@ int ObjectRef::l_hud_change(lua_State *L)
 	if (player == nullptr)
 		return 0;
 
-	u32 id = luaL_checkint(L, 2);
+	u32 id = luaL_checkinteger(L, 2);
 
 	HudElement *elem = player->getHud(id);
 	if (elem == nullptr)
@@ -1557,7 +1557,7 @@ int ObjectRef::l_hud_get(lua_State *L)
 	if (player == nullptr)
 		return 0;
 
-	u32 id = luaL_checkint(L, 2);
+	u32 id = luaL_checkinteger(L, 2);
 
 	HudElement *elem = player->getHud(id);
 	if (elem == nullptr)
@@ -1630,7 +1630,7 @@ int ObjectRef::l_hud_set_hotbar_itemcount(lua_State *L)
 	if (player == nullptr)
 		return 0;
 
-	s32 hotbar_itemcount = luaL_checkint(L, 2);
+	s32 hotbar_itemcount = luaL_checkinteger(L, 2);
 
 	if (!getServer(L)->hudSetHotbarItemcount(player, hotbar_itemcount))
 		return 0;

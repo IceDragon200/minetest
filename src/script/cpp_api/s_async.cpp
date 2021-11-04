@@ -20,13 +20,6 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include <cstdio>
 #include <cstdlib>
 
-extern "C" {
-#include "lua.h"
-#include "lauxlib.h"
-#include "lualib.h"
-}
-
-#include "server.h"
 #include "s_async.h"
 #include "log.h"
 #include "filesys.h"

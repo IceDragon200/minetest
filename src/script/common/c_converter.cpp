@@ -17,10 +17,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-extern "C" {
-#include "lua.h"
-#include "lauxlib.h"
-}
+#include "mt_lua.h"
 
 #include "util/numeric.h"
 #include "util/serialize.h"
@@ -29,7 +26,6 @@ extern "C" {
 #include "common/c_internal.h"
 #include "constants.h"
 #include <set>
-
 
 #define CHECK_TYPE(index, name, type) { \
 		int t = lua_type(L, (index)); \

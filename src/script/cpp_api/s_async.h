@@ -24,7 +24,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 #include "threading/semaphore.h"
 #include "threading/thread.h"
-#include "lua.h"
+#include "mt_lua.h"
 #include "cpp_api/s_base.h"
 
 // Forward declarations

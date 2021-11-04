@@ -27,9 +27,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 #pragma once
 
-extern "C" {
-#include <lua.h>
-}
+#include "mt_lua.h"
 
 #include <iostream>
 #include <vector>

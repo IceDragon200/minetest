@@ -43,7 +43,10 @@ int script_exception_wrapper(lua_State *L, lua_CFunction f)
 	} catch (std::exception &e) {
 		lua_pushstring(L, e.what());
 	}
-	return lua_error(L);  // Rethrow as a Lua error.
+	// NOTE: LUAU's implementation of lua_error has no return,
+	//       while other implementations generally just return 0 regardless.
+	lua_error(L);  // Rethrow as a Lua error.
+	return 0; // most lua_error implementations just return 0
 }
 
 /*

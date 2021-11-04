@@ -656,7 +656,7 @@ int ModApiItemMod::l_get_content_id(lua_State *L)
 int ModApiItemMod::l_get_name_from_content_id(lua_State *L)
 {
 	NO_MAP_LOCK_REQUIRED;
-	content_t c = luaL_checkint(L, 1);
+	content_t c = luaL_checkinteger(L, 1);
 
 	const NodeDefManager *ndef = getGameDef(L)->getNodeDefManager();
 	const char *name = ndef->get(c).name.c_str();

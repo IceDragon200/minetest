@@ -46,9 +46,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "lua_api/l_http.h"
 #include "lua_api/l_storage.h"
 
-extern "C" {
-#include "lualib.h"
-}
+#include "mt_lua.h"
 
 ServerScripting::ServerScripting(Server* server):
 		ScriptApiBase(ScriptingType::Server)

@@ -32,13 +32,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "client/client.h"
 #endif
 
-
-extern "C" {
-#include "lualib.h"
-#if USE_LUAJIT
-	#include "luajit.h"
-#endif
-}
+#include "mt_lua.h"
 
 #include <cstdio>
 #include <cstdarg>
