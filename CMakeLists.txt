@@ -11,7 +11,7 @@ endif()
 project(minetest)
 set(PROJECT_NAME_CAPITALIZED "Minetest")
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 set(GCC_MINIMUM_VERSION "4.8")
 set(CLANG_MINIMUM_VERSION "3.4")
 

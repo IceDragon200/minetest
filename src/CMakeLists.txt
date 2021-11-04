@@ -497,6 +497,7 @@ include_directories(
 	${SOUND_INCLUDE_DIRS}
 	${SQLITE3_INCLUDE_DIR}
 	${LUA_INCLUDE_DIR}
+	${LUA_INCLUDE_DIRS}
 	${GMP_INCLUDE_DIR}
 	${JSON_INCLUDE_DIR}
 	${X11_INCLUDE_DIR}
@@ -533,7 +534,7 @@ if(BUILD_CLIENT)
 		${X11_LIBRARIES}
 		${SOUND_LIBRARIES}
 		${SQLITE3_LIBRARY}
-		${LUA_LIBRARY}
+		${LUA_LIBS}
 		${GMP_LIBRARY}
 		${JSON_LIBRARY}
 		${PLATFORM_LIBS}
@@ -725,7 +726,10 @@ if(MSVC)
 	endif()
 else()
 	# GCC or compatible compilers such as Clang
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+	#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+	# at least c++17 is required for LUAU
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
+
 	if(WARN_ALL)
 		set(RELEASE_WARNING_FLAGS "-Wall")
 	else()

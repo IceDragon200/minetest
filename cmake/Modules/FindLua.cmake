@@ -26,6 +26,7 @@ if(ENABLE_LUAJIT)
 
 	if(LUAJIT_FOUND)
 		set(USE_LUAJIT TRUE)
+		set(LUA_LIBS ${LUA_LIBRARY})
 		message (STATUS "Using LuaJIT provided by system.")
 	elseif(REQUIRE_LUAJIT)
 		message(FATAL_ERROR "LuaJIT not found whereas REQUIRE_LUAJIT=\"TRUE\" is used.\n"
@@ -40,6 +41,7 @@ if(ENABLE_LUAU)
 
 	if(LUAU_FOUND)
 		set(USE_LUAU TRUE)
+		set(LUA_LIBS ${LUAU_COMPILER_LIBRARY} ${LUAU_AST_LIBRARY} ${LUAU_VM_LIBRARY})
 		message(STATUS "Using Luau provided by system.")
 	elseif(REQUIRE_LUAU)
 		message(FATAL_ERROR "Luau not found whereas REQUIRE_LUAU=\"TRUE\" is used.\n"
@@ -53,6 +55,7 @@ if(NOT USE_LUAJIT AND NOT USE_LUAU)
 	message(STATUS "Neither LuaJIT nor Luau were found, using bundled Lua.")
 
 	set(LUA_LIBRARY lua)
+	set(LUA_LIBS ${LUA_LIBRARY})
 	set(LUA_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib/lua/src)
 	add_subdirectory(lib/lua)
 endif()
