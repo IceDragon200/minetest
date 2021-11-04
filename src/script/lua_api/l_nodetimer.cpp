@@ -96,7 +96,7 @@ int NodeTimerRef::l_get_elapsed(lua_State *L)
 void NodeTimerRef::create(lua_State *L, v3s16 p, ServerMap *map)
 {
 	NodeTimerRef *o = new NodeTimerRef(p, map);
-	*(void **)(lua_newuserdata(L, sizeof(void *))) = o;
+	*(void **)(mt_lua_newuserdata(L, sizeof(void *))) = o;
 	luaL_getmetatable(L, className);
 	lua_setmetatable(L, -2);
 }

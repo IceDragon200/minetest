@@ -410,7 +410,7 @@ int LuaVoxelManip::create_object(lua_State *L)
 		new LuaVoxelManip(map, check_v3s16(L, 1), check_v3s16(L, 2)) :
 		new LuaVoxelManip(map);
 
-	*(void **)(lua_newuserdata(L, sizeof(void *))) = o;
+	*(void **)(mt_lua_newuserdata(L, sizeof(void *))) = o;
 	luaL_getmetatable(L, className);
 	lua_setmetatable(L, -2);
 	return 1;

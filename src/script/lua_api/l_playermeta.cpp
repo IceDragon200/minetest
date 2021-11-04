@@ -63,7 +63,7 @@ int PlayerMetaRef::gc_object(lua_State *L)
 void PlayerMetaRef::create(lua_State *L, Metadata *metadata)
 {
 	PlayerMetaRef *o = new PlayerMetaRef(metadata);
-	*(void **)(lua_newuserdata(L, sizeof(void *))) = o;
+	*(void **)(mt_lua_newuserdata(L, sizeof(void *))) = o;
 	luaL_getmetatable(L, className);
 	lua_setmetatable(L, -2);
 }

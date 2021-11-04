@@ -75,7 +75,7 @@ int LuaPerlinNoise::create_object(lua_State *L)
 
 	LuaPerlinNoise *o = new LuaPerlinNoise(&params);
 
-	*(void **)(lua_newuserdata(L, sizeof(void *))) = o;
+	*(void **)(mt_lua_newuserdata(L, sizeof(void *))) = o;
 	luaL_getmetatable(L, className);
 	lua_setmetatable(L, -2);
 	return 1;
@@ -332,7 +332,7 @@ int LuaPerlinNoiseMap::create_object(lua_State *L)
 	v3s16 size = read_v3s16(L, 2);
 
 	LuaPerlinNoiseMap *o = new LuaPerlinNoiseMap(&np, 0, size);
-	*(void **)(lua_newuserdata(L, sizeof(void *))) = o;
+	*(void **)(mt_lua_newuserdata(L, sizeof(void *))) = o;
 	luaL_getmetatable(L, className);
 	lua_setmetatable(L, -2);
 	return 1;
@@ -439,7 +439,7 @@ int LuaPseudoRandom::create_object(lua_State *L)
 
 	u64 seed = luaL_checknumber(L, 1);
 	LuaPseudoRandom *o = new LuaPseudoRandom(seed);
-	*(void **)(lua_newuserdata(L, sizeof(void *))) = o;
+	*(void **)(mt_lua_newuserdata(L, sizeof(void *))) = o;
 	luaL_getmetatable(L, className);
 	lua_setmetatable(L, -2);
 	return 1;
@@ -538,7 +538,7 @@ int LuaPcgRandom::create_object(lua_State *L)
 	LuaPcgRandom *o = lua_isnumber(L, 2) ?
 		new LuaPcgRandom(seed, lua_tointeger(L, 2)) :
 		new LuaPcgRandom(seed);
-	*(void **)(lua_newuserdata(L, sizeof(void *))) = o;
+	*(void **)(mt_lua_newuserdata(L, sizeof(void *))) = o;
 	luaL_getmetatable(L, className);
 	lua_setmetatable(L, -2);
 	return 1;
@@ -653,7 +653,7 @@ int LuaSecureRandom::create_object(lua_State *L)
 		return 0;
 	}
 
-	*(void **)(lua_newuserdata(L, sizeof(void *))) = o;
+	*(void **)(mt_lua_newuserdata(L, sizeof(void *))) = o;
 	luaL_getmetatable(L, className);
 	lua_setmetatable(L, -2);
 	return 1;

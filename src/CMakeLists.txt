@@ -392,6 +392,7 @@ set(common_SRCS
 	mapsector.cpp
 	metadata.cpp
 	modchannels.cpp
+	mt_lua.cpp
 	nameidmapping.cpp
 	nodedef.cpp
 	nodemetadata.cpp

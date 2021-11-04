@@ -436,7 +436,7 @@ int LuaItemStack::create_object(lua_State *L)
 	if (!lua_isnone(L, 1))
 		item = read_item(L, 1, getGameDef(L)->idef());
 	LuaItemStack *o = new LuaItemStack(item);
-	*(void **)(lua_newuserdata(L, sizeof(void *))) = o;
+	*(void **)(mt_lua_newuserdata(L, sizeof(void *))) = o;
 	luaL_getmetatable(L, className);
 	lua_setmetatable(L, -2);
 	return 1;
@@ -446,7 +446,7 @@ int LuaItemStack::create(lua_State *L, const ItemStack &item)
 {
 	NO_MAP_LOCK_REQUIRED;
 	LuaItemStack *o = new LuaItemStack(item);
-	*(void **)(lua_newuserdata(L, sizeof(void *))) = o;
+	*(void **)(mt_lua_newuserdata(L, sizeof(void *))) = o;
 	luaL_getmetatable(L, className);
 	lua_setmetatable(L, -2);
 	return 1;

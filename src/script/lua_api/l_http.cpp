@@ -173,11 +173,18 @@ int ModApiHttp::l_request_http_api(lua_State *L)
 	lua_Debug info;
 
 	// Make sure there's only one item below this function on the stack...
+#if USE_LUAU
+	if (lua_getinfo(L, 2, "S", &info)) {
+		return 0;
+	}
+	FATAL_ERROR_IF(!lua_getinfo(L, 1, "Sl", &info), "lua_getinfo() failed");
+#else
 	if (lua_getstack(L, 2, &info)) {
 		return 0;
 	}
 	FATAL_ERROR_IF(!lua_getstack(L, 1, &info), "lua_getstack() failed");
 	FATAL_ERROR_IF(!lua_getinfo(L, "S", &info), "lua_getinfo() failed");
+#endif
 
 	// ...and that that item is the main file scope.
 	if (strcmp(info.what, "main") != 0) {

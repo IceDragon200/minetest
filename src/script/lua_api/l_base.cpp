@@ -112,8 +112,12 @@ int ModApiBase::l_deprecated_function(lua_State *L, const char *good, const char
 	lua_Debug ar;
 
 	// Get caller name with line and script backtrace
+#if USE_LUAU
+	FATAL_ERROR_IF(!lua_getinfo(L, 1, "Sl", &ar), "lua_getinfo() failed");
+#else
 	FATAL_ERROR_IF(!lua_getstack(L, 1, &ar), "lua_getstack() failed");
 	FATAL_ERROR_IF(!lua_getinfo(L, "Sl", &ar), "lua_getinfo() failed");
+#endif
 
 	// Get backtrace and hash it to reduce the warning flood
 	std::string backtrace = ar.short_src;

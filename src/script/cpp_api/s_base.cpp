@@ -75,7 +75,13 @@ ScriptApiBase::ScriptApiBase(ScriptingType type):
 	m_luastack = luaL_newstate();
 	FATAL_ERROR_IF(!m_luastack, "luaL_newstate() failed");
 
+#if USE_LUAU
+	// TODO: find out what the equivalent panic handler is for LUAU
+	struct lua_Callbacks* callbacks = lua_callbacks(m_luastack);
+	callbacks->panic = luauPanic;
+#else
 	lua_atpanic(m_luastack, &luaPanic);
+#endif
 
 	if (m_type == ScriptingType::Client)
 		clientOpenLibs(m_luastack);
@@ -84,7 +90,7 @@ ScriptApiBase::ScriptApiBase(ScriptingType type):
 
 	// Make the ScriptApiBase* accessible to ModApiBase
 #if INDIRECT_SCRIPTAPI_RIDX
-	*(void **)(lua_newuserdata(m_luastack, sizeof(void *))) = this;
+	*(void **)(mt_lua_newuserdata(m_luastack, sizeof(void *))) = this;
 #else
 	lua_pushlightuserdata(m_luastack, this);
 #endif
@@ -126,6 +132,15 @@ ScriptApiBase::~ScriptApiBase()
 	lua_close(m_luastack);
 }
 
+#if USE_LUAU
+void ScriptApiBase::luauPanic(lua_State *L, int _errorCode)
+{
+	std::ostringstream oss;
+	oss << "LUA PANIC: unprotected error in call to Lua API ("
+		<< readParam<std::string>(L, -1) << ")";
+	FATAL_ERROR(oss.str().c_str());
+}
+#else
 int ScriptApiBase::luaPanic(lua_State *L)
 {
 	std::ostringstream oss;
@@ -135,6 +150,7 @@ int ScriptApiBase::luaPanic(lua_State *L)
 	// NOTREACHED
 	return 0;
 }
+#endif
 
 void ScriptApiBase::clientOpenLibs(lua_State *L)
 {
@@ -177,7 +193,7 @@ void ScriptApiBase::loadScript(const std::string &script_path)
 	if (m_secure) {
 		ok = ScriptApiSecurity::safeLoadFile(L, script_path.c_str());
 	} else {
-		ok = !luaL_loadfile(L, script_path.c_str());
+		ok = !mt_luaL_loadfile(L, script_path.c_str());
 	}
 	ok = ok && !lua_pcall(L, 0, 0, error_handler);
 	if (!ok) {

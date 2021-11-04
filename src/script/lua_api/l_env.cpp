@@ -188,7 +188,7 @@ int LuaRaycast::create_object(lua_State *L)
 	LuaRaycast *o = new LuaRaycast(core::line3d<f32>(pos1, pos2),
 		objects, liquids);
 
-	*(void **) (lua_newuserdata(L, sizeof(void *))) = o;
+	*(void **) (mt_lua_newuserdata(L, sizeof(void *))) = o;
 	luaL_getmetatable(L, className);
 	lua_setmetatable(L, -2);
 	return 1;
@@ -1062,7 +1062,7 @@ int ModApiEnvMod::l_get_perlin(lua_State *L)
 	params.seed += (int)env->getServerMap().getSeed();
 
 	LuaPerlinNoise *n = new LuaPerlinNoise(&params);
-	*(void **)(lua_newuserdata(L, sizeof(void *))) = n;
+	*(void **)(mt_lua_newuserdata(L, sizeof(void *))) = n;
 	luaL_getmetatable(L, "PerlinNoise");
 	lua_setmetatable(L, -2);
 	return 1;
@@ -1081,7 +1081,7 @@ int ModApiEnvMod::l_get_perlin_map(lua_State *L)
 
 	s32 seed = (s32)(env->getServerMap().getSeed());
 	LuaPerlinNoiseMap *n = new LuaPerlinNoiseMap(&np, seed, size);
-	*(void **)(lua_newuserdata(L, sizeof(void *))) = n;
+	*(void **)(mt_lua_newuserdata(L, sizeof(void *))) = n;
 	luaL_getmetatable(L, "PerlinNoiseMap");
 	lua_setmetatable(L, -2);
 	return 1;
@@ -1098,7 +1098,7 @@ int ModApiEnvMod::l_get_voxel_manip(lua_State *L)
 		new LuaVoxelManip(map, read_v3s16(L, 1), read_v3s16(L, 2)) :
 		new LuaVoxelManip(map);
 
-	*(void **)(lua_newuserdata(L, sizeof(void *))) = o;
+	*(void **)(mt_lua_newuserdata(L, sizeof(void *))) = o;
 	luaL_getmetatable(L, "VoxelManip");
 	lua_setmetatable(L, -2);
 	return 1;
@@ -1222,10 +1222,10 @@ int ModApiEnvMod::l_emerge_area(lua_State *L)
 		callback = LuaEmergeAreaCallback;
 
 		lua_pushvalue(L, 3);
-		int callback_ref = luaL_ref(L, LUA_REGISTRYINDEX);
+		int callback_ref = mt_luaL_ref(L, LUA_REGISTRYINDEX);
 
 		lua_pushvalue(L, 4);
-		int args_ref = luaL_ref(L, LUA_REGISTRYINDEX);
+		int args_ref = mt_luaL_ref(L, LUA_REGISTRYINDEX);
 
 		state = new ScriptCallbackState;
 		state->script       = getServer(L)->getScriptIface();

@@ -80,7 +80,7 @@ void ItemStackMetaRef::create(lua_State *L, ItemStack *istack)
 {
 	ItemStackMetaRef *o = new ItemStackMetaRef(istack);
 	//infostream<<"NodeMetaRef::create: o="<<o<<std::endl;
-	*(void **)(lua_newuserdata(L, sizeof(void *))) = o;
+	*(void **)(mt_lua_newuserdata(L, sizeof(void *))) = o;
 	luaL_getmetatable(L, className);
 	lua_setmetatable(L, -2);
 }

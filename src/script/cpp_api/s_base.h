@@ -155,7 +155,11 @@ protected:
 #endif
 
 private:
+#if USE_LUAU
+	static void luauPanic(lua_State *L, int errorCode);
+#else
 	static int luaPanic(lua_State *L);
+#endif
 
 	lua_State      *m_luastack = nullptr;
 

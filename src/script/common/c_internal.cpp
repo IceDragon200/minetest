@@ -107,9 +107,12 @@ void script_error(lua_State *L, int pcall_result, const char *mod, const char *f
 static void script_log_add_source(lua_State *L, std::string &message, int stack_depth)
 {
 	lua_Debug ar;
-
+#if USE_LUAU
+	if (lua_getinfo(L, stack_depth, "Sl", &ar)) {
+#else
 	if (lua_getstack(L, stack_depth, &ar)) {
 		FATAL_ERROR_IF(!lua_getinfo(L, "Sl", &ar), "lua_getinfo() failed");
+#endif
 		message.append(" (at " + std::string(ar.short_src) + ":"
 			+ std::to_string(ar.currentline) + ")");
 	} else {

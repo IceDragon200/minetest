@@ -83,7 +83,7 @@ void LuaSettings::create(lua_State *L, Settings *settings,
 		const std::string &filename)
 {
 	LuaSettings *o = new LuaSettings(settings, filename);
-	*(void **)(lua_newuserdata(L, sizeof(void *))) = o;
+	*(void **)(mt_lua_newuserdata(L, sizeof(void *))) = o;
 	luaL_getmetatable(L, className);
 	lua_setmetatable(L, -2);
 }
@@ -350,7 +350,7 @@ int LuaSettings::create_object(lua_State* L)
 	const char* filename = luaL_checkstring(L, 1);
 	CHECK_SECURE_PATH_POSSIBLE_WRITE(L, filename, &write_allowed);
 	LuaSettings* o = new LuaSettings(filename, write_allowed);
-	*(void **)(lua_newuserdata(L, sizeof(void *))) = o;
+	*(void **)(mt_lua_newuserdata(L, sizeof(void *))) = o;
 	luaL_getmetatable(L, className);
 	lua_setmetatable(L, -2);
 	return 1;

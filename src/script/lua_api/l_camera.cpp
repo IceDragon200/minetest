@@ -43,7 +43,7 @@ void LuaCamera::create(lua_State *L, Camera *m)
 	}
 
 	LuaCamera *o = new LuaCamera(m);
-	*(void **)(lua_newuserdata(L, sizeof(void *))) = o;
+	*(void **)(mt_lua_newuserdata(L, sizeof(void *))) = o;
 	luaL_getmetatable(L, className);
 	lua_setmetatable(L, -2);
 

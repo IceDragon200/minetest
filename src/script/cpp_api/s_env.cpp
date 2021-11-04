@@ -17,6 +17,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
+#include "mt_lua.h"
 #include "cpp_api/s_env.h"
 #include "cpp_api/s_internal.h"
 #include "common/c_converter.h"
@@ -26,7 +27,6 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "lua_api/l_env.h"
 #include "server.h"
 #include "script/common/c_content.h"
-
 
 void ScriptApiEnv::environment_OnGenerated(v3s16 minp, v3s16 maxp,
 	u32 blockseed)
@@ -252,8 +252,8 @@ void ScriptApiEnv::on_emerge_area_completion(
 	lua_pop(L, 1); // Pop error handler
 
 	if (state->refcount == 0) {
-		luaL_unref(L, LUA_REGISTRYINDEX, state->callback_ref);
-		luaL_unref(L, LUA_REGISTRYINDEX, state->args_ref);
+		mt_luaL_unref(L, LUA_REGISTRYINDEX, state->callback_ref);
+		mt_luaL_unref(L, LUA_REGISTRYINDEX, state->args_ref);
 	}
 }
 

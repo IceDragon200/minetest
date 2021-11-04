@@ -218,12 +218,12 @@ int ObjectRef::l_set_hp(lua_State *L)
 		}
 		lua_pop(L, 1);
 
-		reason.lua_reference = luaL_ref(L, LUA_REGISTRYINDEX);
+		reason.lua_reference = mt_luaL_ref(L, LUA_REGISTRYINDEX);
 	}
 
 	sao->setHP(hp, reason);
 	if (reason.hasLuaReference())
-		luaL_unref(L, LUA_REGISTRYINDEX, reason.lua_reference);
+		mt_luaL_unref(L, LUA_REGISTRYINDEX, reason.lua_reference);
 	return 0;
 }
 
@@ -2265,7 +2265,7 @@ ObjectRef::ObjectRef(ServerActiveObject *object):
 void ObjectRef::create(lua_State *L, ServerActiveObject *object)
 {
 	ObjectRef *obj = new ObjectRef(object);
-	*(void **)(lua_newuserdata(L, sizeof(void *))) = obj;
+	*(void **)(mt_lua_newuserdata(L, sizeof(void *))) = obj;
 	luaL_getmetatable(L, className);
 	lua_setmetatable(L, -2);
 }

@@ -332,7 +332,7 @@ int LuaAreaStore::create_object(lua_State *L)
 		new LuaAreaStore(readParam<std::string>(L, 1)) :
 		new LuaAreaStore();
 
-	*(void **)(lua_newuserdata(L, sizeof(void *))) = o;
+	*(void **)(mt_lua_newuserdata(L, sizeof(void *))) = o;
 	luaL_getmetatable(L, className);
 	lua_setmetatable(L, -2);
 	return 1;

@@ -114,7 +114,7 @@ void ModChannelRef::Register(lua_State *L)
 void ModChannelRef::create(lua_State *L, const std::string &channel)
 {
 	ModChannelRef *o = new ModChannelRef(channel);
-	*(void **)(lua_newuserdata(L, sizeof(void *))) = o;
+	*(void **)(mt_lua_newuserdata(L, sizeof(void *))) = o;
 	luaL_getmetatable(L, className);
 	lua_setmetatable(L, -2);
 }

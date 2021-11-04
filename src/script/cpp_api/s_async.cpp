@@ -21,6 +21,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include <cstdlib>
 
 #include "s_async.h"
+#include "server.h"
 #include "log.h"
 #include "filesys.h"
 #include "porting.h"
@@ -221,7 +222,7 @@ void* AsyncWorkerThread::run()
 			FATAL_ERROR("Unable to get async job processor!");
 		luaL_checktype(L, -1, LUA_TFUNCTION);
 
-		if (luaL_loadbuffer(L, j.function.data(), j.function.size(), "=(async)")) {
+		if (mt_luaL_loadbuffer(L, j.function.data(), j.function.size(), "=(async)")) {
 			errorstream << "ASYNC WORKER: Unable to deserialize function" << std::endl;
 			lua_pushnil(L);
 		}

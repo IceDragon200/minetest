@@ -189,7 +189,7 @@ void NodeMetaRef::create(lua_State *L, v3s16 p, ServerEnvironment *env)
 {
 	NodeMetaRef *o = new NodeMetaRef(p, env);
 	//infostream<<"NodeMetaRef::create: o="<<o<<std::endl;
-	*(void **)(lua_newuserdata(L, sizeof(void *))) = o;
+	*(void **)(mt_lua_newuserdata(L, sizeof(void *))) = o;
 	luaL_getmetatable(L, className);
 	lua_setmetatable(L, -2);
 }
@@ -198,7 +198,7 @@ void NodeMetaRef::create(lua_State *L, v3s16 p, ServerEnvironment *env)
 void NodeMetaRef::createClient(lua_State *L, Metadata *meta)
 {
 	NodeMetaRef *o = new NodeMetaRef(meta);
-	*(void **)(lua_newuserdata(L, sizeof(void *))) = o;
+	*(void **)(mt_lua_newuserdata(L, sizeof(void *))) = o;
 	luaL_getmetatable(L, className);
 	lua_setmetatable(L, -2);
 }

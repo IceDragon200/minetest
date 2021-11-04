@@ -66,7 +66,7 @@ StorageRef::~StorageRef()
 void StorageRef::create(lua_State *L, ModMetadata *object)
 {
 	StorageRef *o = new StorageRef(object);
-	*(void **)(lua_newuserdata(L, sizeof(void *))) = o;
+	*(void **)(mt_lua_newuserdata(L, sizeof(void *))) = o;
 	luaL_getmetatable(L, className);
 	lua_setmetatable(L, -2);
 }

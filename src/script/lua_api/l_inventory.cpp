@@ -417,7 +417,7 @@ void InvRef::create(lua_State *L, const InventoryLocation &loc)
 {
 	NO_MAP_LOCK_REQUIRED;
 	InvRef *o = new InvRef(loc);
-	*(void **)(lua_newuserdata(L, sizeof(void *))) = o;
+	*(void **)(mt_lua_newuserdata(L, sizeof(void *))) = o;
 	luaL_getmetatable(L, className);
 	lua_setmetatable(L, -2);
 }
