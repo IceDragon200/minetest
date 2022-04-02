@@ -27,10 +27,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "common/helper.h"
 #include "util/basic_macros.h"
 
-extern "C" {
-#include <lua.h>
-#include <lualib.h>
-}
+#include "mt_lua.h"
 
 #include "irrlichttypes.h"
 #include "common/c_types.h"

@@ -32,9 +32,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "irrlichttypes_bloated.h"
 #include "common/c_types.h"
 
-extern "C" {
-#include <lua.h>
-}
+#include "mt_lua.h"
 
 std::string        getstringfield_default(lua_State *L, int table,
                              const char *fieldname, const std::string &default_);

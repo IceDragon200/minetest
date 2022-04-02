@@ -33,10 +33,10 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #endif
 
 
+#include "mt_lua.h"
 extern "C" {
-#include "lualib.h"
 #if USE_LUAJIT
-	#include "luajit.h"
+	// #include "luajit.h"
 #else
 	#include "bit.h"
 #endif

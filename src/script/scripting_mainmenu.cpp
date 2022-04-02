@@ -28,9 +28,8 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "lua_api/l_settings.h"
 #include "log.h"
 
-extern "C" {
-#include "lualib.h"
-}
+#include "mt_lua.h"
+
 #define MAINMENU_NUM_ASYNC_THREADS 4
 
 

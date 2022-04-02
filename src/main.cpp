@@ -53,13 +53,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #endif
 
 // for version information only
-extern "C" {
-#if USE_LUAJIT
-	#include <luajit.h>
-#else
-	#include <lua.h>
-#endif
-}
+#include "mt_lua.h"
 
 #if !defined(__cpp_rtti) || !defined(__cpp_exceptions)
 #error Minetest cannot be built without exceptions or RTTI

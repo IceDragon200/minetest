@@ -20,11 +20,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include <cstdio>
 #include <cstdlib>
 
-extern "C" {
-#include "lua.h"
-#include "lauxlib.h"
-#include "lualib.h"
-}
+#include "mt_lua.h"
 
 #include "server.h"
 #include "s_async.h"

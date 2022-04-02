@@ -25,10 +25,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "gamedef.h"
 #include <unordered_map>
 
-extern "C" {
-#include <lua.h>
-#include <lauxlib.h>
-}
+#include "mt_lua.h"
 
 #ifndef SERVER
 class Client;
